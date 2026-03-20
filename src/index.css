@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #020816;
+}
+
+button {
+  font: inherit;
+}
+
+.map-perspective {
+  overflow: hidden;
+}
+
+.city-plane {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: 50% 70%;
+  transition: transform 220ms ease-out;
+}
+
+.street-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: 34px;
+  background:
+    linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(56, 189, 248, 0.1), transparent 46%);
+  background-size: 8% 8%, 8% 8%, 100% 100%;
+  box-shadow:
+    inset 0 0 120px rgba(2, 6, 23, 0.85),
+    inset 0 0 26px rgba(56, 189, 248, 0.12);
+}
+
+.road {
+  position: absolute;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+  box-shadow:
+    inset 0 0 0 1px rgba(148, 163, 184, 0.08),
+    0 0 24px rgba(15, 23, 42, 0.65);
+}
+
+.road::before,
+.road::after {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: inherit;
+}
+
+.road::before {
+  background: linear-gradient(90deg, transparent 0 8%, rgba(255,255,255,0.08) 8% 12%, transparent 12% 20%, rgba(255,255,255,0.08) 20% 24%, transparent 24% 100%);
+  opacity: 0.25;
+}
+
+.road::after {
+  inset: 12%;
+  background: linear-gradient(90deg, transparent 0 46%, rgba(255,255,255,0.35) 46% 54%, transparent 54% 100%);
+  opacity: 0.45;
+}
+
+.road-main-h { left: 7%; top: 68%; width: 78%; height: 4.2%; }
+.road-main-v { left: 47.2%; top: 18%; width: 4.2%; height: 55%; }
+.road-side-left { left: 11%; top: 30%; width: 4%; height: 38%; }
+.road-side-right { left: 73%; top: 18%; width: 4%; height: 27%; }
+.road-cross-top { left: 16%; top: 29%; width: 33%; height: 3.8%; }
+.road-cross-bottom { left: 49%; top: 40%; width: 25%; height: 3.8%; }
+.road-lab-link { left: 33%; top: 58%; width: 16%; height: 3.8%; }
+.road-contact-link { left: 70%; top: 60%; width: 14%; height: 3.8%; }
+
+.lane-glow {
+  position: absolute;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.2), transparent);
+  filter: blur(10px);
+  opacity: 0.55;
+}
+
+.lane-h { left: 10%; top: 69%; width: 70%; height: 2%; }
+.lane-v { left: 48.2%; top: 23%; width: 2%; height: 45%; background: linear-gradient(180deg, transparent, rgba(59,130,246,0.2), transparent); }
+
+.building {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transition: transform 200ms ease, filter 200ms ease;
+}
+
+.building:hover,
+.building.active {
+  transform: translateZ(14px) scale(1.02);
+  filter: drop-shadow(0 0 22px rgba(103, 232, 249, 0.18));
+}
+
+.building-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 130px;
+  height: 42px;
+  transform: translate3d(-50%, -50%, -2px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.42), rgba(56,189,248,0.08) 55%, transparent 70%);
+  filter: blur(10px);
+}
+
+.building-core,
+.building-core::before,
+.building-core::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+}
+
+.building-core {
+  display: grid;
+  place-items: end start;
+  overflow: hidden;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(12, 24, 44, 0.95), rgba(5, 13, 27, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 18px 35px rgba(2, 6, 23, 0.45);
+}
+
+.building-core::before {
+  content: '';
+  inset: auto 12px 12px 12px;
+  height: 32%;
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px),
+    linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(2,132,199,0.18), rgba(15,23,42,0.02));
+  background-size: 17% 100%, 100% 28%, 100% 100%;
+}
+
+.building-core::after {
+  content: '';
+  inset: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.building-title {
+  position: relative;
+  z-index: 2;
+  max-width: 110px;
+  color: white;
+  text-align: left;
+}
+
+.building-title strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.building-kicker {
+  display: block;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: rgb(125 211 252);
+}
+
+.data-city .building-core {
+  clip-path: polygon(6% 28%, 20% 6%, 45% 16%, 62% 0, 84% 16%, 94% 36%, 94% 100%, 6% 100%);
+}
+.data-city .building-core::before {
+  height: 44%;
+  background-size: 12% 100%, 100% 22%, 100% 100%;
+}
+
+.home-office .building-core {
+  clip-path: polygon(8% 40%, 50% 10%, 92% 40%, 92% 100%, 8% 100%);
+}
+.home-office .building-core::before {
+  height: 34%;
+  inset: auto 22px 14px 22px;
+  border-radius: 10px;
+}
+
+.lab .building-core {
+  clip-path: polygon(10% 24%, 90% 24%, 96% 54%, 82% 100%, 18% 100%, 4% 54%);
+}
+.lab .building-core::before {
+  inset: auto 18px 14px 18px;
+  height: 38%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(167,139,250,0.35), transparent 18%),
+    radial-gradient(circle at 70% 35%, rgba(56,189,248,0.22), transparent 22%),
+    linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px),
+    linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(139,92,246,0.2), rgba(15,23,42,0.02));
+  background-size: auto, auto, 17% 100%, 100% 28%, 100% 100%;
+}
+
+.tower .building-core {
+  width: 112px;
+  margin: 0 auto;
+  border-radius: 26px 26px 16px 16px;
+}
+.tower .building-core::before {
+  height: 60%;
+  inset: auto 18px 16px 18px;
+  background-size: 20% 100%, 100% 12%, 100% 100%;
+}
+
+.station .building-core {
+  clip-path: polygon(5% 38%, 18% 18%, 78% 18%, 95% 42%, 95% 100%, 5% 100%);
+}
+.station .building-core::before {
+  height: 28%;
+  inset: auto 16px 12px 16px;
+}
+
+.player-marker {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  transform: translate3d(-50%, -50%, 6px);
+  pointer-events: none;
+}
+
+.player-shadow {
+  position: absolute;
+  inset: auto 8px 4px 8px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.6), rgba(34,211,238,0.05) 65%, transparent 75%);
+  filter: blur(6px);
+}
+
+.player-body {
+  position: absolute;
+  inset: 6px;
+  border-radius: 18px 18px 12px 12px;
+  background: linear-gradient(180deg, rgba(186,230,253,0.96), rgba(34,211,238,0.85));
+  box-shadow:
+    0 0 30px rgba(34, 211, 238, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.55);
+  display: grid;
+  place-items: center;
+}
+
+.player-body span {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.85);
+  box-shadow: 20px 0 0 rgba(2, 6, 23, 0.85), -20px 0 0 rgba(2, 6, 23, 0.85);
+}
+
+@media (max-width: 1279px) {
+  .building { width: 132px; height: 132px; }
+}
+
+@media (max-width: 768px) {
+  .map-perspective { inset-inline: 1.5%; top: 8%; bottom: 10%; }
+  .building { width: 110px; height: 110px; }
+  .building-title strong { font-size: 1rem; }
+  .building-kicker { letter-spacing: 0.18em; }
+  .player-marker { width: 50px; height: 50px; }
+}
