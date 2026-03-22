@@ -4,6 +4,7 @@ import { DISTRICTS, FLY_TARGETS } from './cityData'
 import {
   buildTextures, buildGround, buildRoads, buildSidewalks,
   buildLamps, buildFountains, buildFiller, buildVegetation, buildStars,
+  buildBackground,
   buildProjetos, buildSobre, buildLaboratorio, buildDashboards, buildContato,
 } from './sceneBuilder'
 
@@ -216,6 +217,7 @@ export default function App() {
     buildContato(scene, buildings, TEX, windowMaterials)
     buildFiller(scene, windowMaterials, TEX)
     buildVegetation(scene)
+    buildBackground(scene)
     buildStars(scene)
 
     // ── DAY/NIGHT ────────────────────────────────────────────────────────────
